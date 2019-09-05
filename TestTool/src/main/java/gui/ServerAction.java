@@ -8,12 +8,12 @@ import java.awt.event.ActionListener;
 
 public class ServerAction implements ActionListener {
 	private int port;
-	private int ip;
+
 
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
-		new Thread(new ServerThread(port, ip)).start();
+		new Thread(new ServerThread(port)).start();
 		
 	
 	}
@@ -23,10 +23,6 @@ public class ServerAction implements ActionListener {
 		port = ports;
 	}
 	
-	public void setIP(int ipb)
-	{
-		ip = ipb;
-	}
 	
 
 }

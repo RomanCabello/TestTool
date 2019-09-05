@@ -1,27 +1,35 @@
 package server;
 import java.net.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JTextField;
+
+import client.Client;
+
 import java.io.*;
 import gui.ServerGui;
 
 public class Server {
 	private ServerSocket ss;
 	private int port;
-	private int ip;
-	private PrintWriter out;
-    private BufferedReader in;
-    private Socket s;
+	private List<PrintWriter> out = new ArrayList<PrintWriter>(); ;
+    private List <BufferedReader> in = new ArrayList<BufferedReader>();
+    private List <Socket> s = new ArrayList<Socket>();
     private ServerGui sg;
+    private JTextField tf;
+    
+    private int i;
 	
     
-	public Server(int ports, int ipa)
+	public Server(int ports)
 	{
 		port = ports;
-		ip = ipa;
 	}
 	
 	public void go() throws IOException
 	{
-		String address = "127.0.0."+ip;
+		
 		
 		
         boolean flag = true;
@@ -42,9 +50,18 @@ public class Server {
 			sg = new ServerGui();
 			sg.Make();
 			sg.setServer(this);
-			s = ss.accept();
-			out = new PrintWriter(s.getOutputStream(), true);
-	        in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			tf = sg.getField();
+			i = 0;
+		}
+		
+		while (true) {
+			s.add(ss.accept());
+			out.add(new PrintWriter(s.get(i).getOutputStream(), true));
+			in.add(new BufferedReader(new InputStreamReader(s.get(i).getInputStream())));
+			new SListen(tf, in.get(i), out.get(i)).start();
+			//sg.setReader(in.get(i));
+			new Client().start();
+			i++;
 		}
 	}
 	
@@ -56,12 +73,12 @@ public class Server {
 	
 	public String read() throws IOException
 	{
-		String text = in.readLine();
+		String text = in.get(i-1).readLine();
 		return text;
 	}
 	
 	public void setOut(String msg)
 	{
-		out.println(msg);
+		out.get(i-1).println(msg);
 	}
 }

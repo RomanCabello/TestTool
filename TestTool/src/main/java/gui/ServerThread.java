@@ -10,14 +10,13 @@ public class ServerThread implements Runnable{
 	private int port;
 	private int ip;
 	
-	public ServerThread(int ports, int ipa) {
+	public ServerThread(int ports) {
 		port = ports;
-		ip = ipa;
 	}
 
 	public void run() {
 		// TODO Auto-generated method stub
-		server = new Server(port, ip);
+		server = new Server(port);
 		
 		try {
 			server.go();

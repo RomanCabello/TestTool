@@ -3,22 +3,27 @@ package gui;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
 
 import javax.swing.*;
+
+import server.SListen;
 import server.Server;
 
 public class ServerGui {
 	private Frame frame;
 	private Server sr;
 	private String txt;
+	private BufferedReader br;
+	private JTextField text;
 	
 	public void Make()
 	{
 		frame = new JFrame("Server");
 		
-		final JTextField text = new JTextField();
+		text = new JTextField();
 		text.setBounds(10, 100, 350, 300);
 		
 		JButton send = new JButton("get");
@@ -27,14 +32,12 @@ public class ServerGui {
 				{
 					public void actionPerformed(ActionEvent arg0)
 					{
-						try {
-							txt = sr.read();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							text.setText("nope");
-						}
-						
-						text.setText(txt);
+				/*
+				 * try { txt = sr.read(); } catch (IOException e) { // TODO Auto-generated catch
+				 * block text.setText("nope"); }
+				 */
+						//new SListen(text,br).start();
+						//text.setText(txt);
 						sr.setOut("ok");
 						
 					}
@@ -52,6 +55,16 @@ public class ServerGui {
 	public void setServer(Server s)
 	{
 		sr = s;
+	}
+	
+	public void setReader(BufferedReader in)
+	{
+		br = in;
+	}
+	
+	public JTextField getField()
+	{
+		return text;
 	}
 	
 }

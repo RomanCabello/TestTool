@@ -7,7 +7,7 @@ import javax.swing.event.ChangeListener;
 
 public class Gui {
 	Frame f;
-	ClientAction cla = new ClientAction(f);
+	ClientAction cla = new ClientAction();
 	ServerAction sra = new ServerAction();
 	private int porta;
 	private int portb;
@@ -34,13 +34,6 @@ public class Gui {
 		final JSpinner port2 = new JSpinner();
 		port2.setBounds(230, 200, 50, 30);
 		
-		final JSpinner ip1 = new JSpinner();
-		ip1.setBounds(30, 300, 50, 30);
-		
-		final JSpinner ip2 = new JSpinner();
-		ip2.setBounds(230, 300, 50, 30);
-		
-		
 		
 		port1.addChangeListener(new ChangeListener() {
 
@@ -62,29 +55,8 @@ public class Gui {
 			}
 		});
 		
-		ip1.addChangeListener(new ChangeListener() {
-
-
-			public void stateChanged(ChangeEvent e) {
-				// TODO Auto-generated method stub
-				ipa = (Integer) ip1.getValue();
-				cla.setPort(ipa);
-			}
-		});
-		
-		ip2.addChangeListener(new ChangeListener() {
-
-
-			public void stateChanged(ChangeEvent f) {
-				// TODO Auto-generated method stub
-				ipb = (Integer) ip2.getValue();
-				sra.setPort(ipb);
-			}
-		});
 		
 	
-		f.add(ip1);
-		f.add(ip2);
 		
 		f.add(port1);
 		f.add(port2);

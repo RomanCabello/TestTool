@@ -3,26 +3,28 @@ import java.net.*;
 import java.io.*;
 import gui.ClientGui;
 
-public class Client {
+public class Client extends Thread{
 
 	private Socket s;
 	private String report;
 	private int port;
-	private int ip;
 	private PrintWriter out;
     private BufferedReader in;
 	private ClientGui cg;
-	private boolean listen;
+	
     
-	public Client(int ports, int ipa)
+	public Client(int ports)
 	{
 		port = ports;
-		ip = ipa;
 	}
 	
-	public void go() throws IOException
+	public Client()
 	{
-		listen = false;
+		
+	}
+	
+	public void run()
+	{
 		boolean flag = true;
 		
 			try {
@@ -35,6 +37,12 @@ public class Client {
 				report = "sorry bud";
 				flag = false;
 				
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} 
 			
 			
@@ -42,8 +50,14 @@ public class Client {
 				cg = new ClientGui();
 				cg.Make();
 				cg.setClient(this);
-				out = new PrintWriter(s.getOutputStream(), true);
-				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				try {
+					out = new PrintWriter(s.getOutputStream(), true);
+					in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		
 	}
