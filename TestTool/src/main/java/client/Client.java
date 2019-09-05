@@ -57,6 +57,7 @@ public class Client extends Thread{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				new CListen(cg.getField(),in).start();
 				
 			}
 		

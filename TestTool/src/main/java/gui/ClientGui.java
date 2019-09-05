@@ -18,12 +18,12 @@ public class ClientGui {
 	private Frame frame;
 	private PrintWriter out;
 	private Client cl;
-	
+	private JTextField text;
 	
 	public void Make() {
 		frame = new JFrame("Client");
 
-		final JTextField text = new JTextField();
+		text = new JTextField();
 		text.setBounds(10, 100, 350, 300);
 		
 		JButton send = new JButton("send");
@@ -36,12 +36,12 @@ public class ClientGui {
 						cl.setOut(msg);
 						
 						
-						try {
-							text.setText(cl.read());
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+//						try {
+//							text.setText(cl.read());
+//						} catch (IOException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
 					}
 				});
 
@@ -57,6 +57,11 @@ public class ClientGui {
 	public void setClient(Client c)
 	{
 		cl = c;
+	}
+	
+	public JTextField getField()
+	{
+		return text;
 	}
 
 }

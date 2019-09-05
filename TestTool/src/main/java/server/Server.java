@@ -13,7 +13,7 @@ import gui.ServerGui;
 public class Server {
 	private ServerSocket ss;
 	private int port;
-	private List<PrintWriter> out = new ArrayList<PrintWriter>(); ;
+	private List<PrintWriter> out = new ArrayList<PrintWriter>();
     private List <BufferedReader> in = new ArrayList<BufferedReader>();
     private List <Socket> s = new ArrayList<Socket>();
     private ServerGui sg;
@@ -49,7 +49,6 @@ public class Server {
 		{
 			sg = new ServerGui();
 			sg.Make();
-			sg.setServer(this);
 			tf = sg.getField();
 			i = 0;
 		}
@@ -57,6 +56,7 @@ public class Server {
 		while (true) {
 			s.add(ss.accept());
 			out.add(new PrintWriter(s.get(i).getOutputStream(), true));
+			sg.setList(out);
 			in.add(new BufferedReader(new InputStreamReader(s.get(i).getInputStream())));
 			new SListen(tf, in.get(i), out.get(i)).start();
 			//sg.setReader(in.get(i));
